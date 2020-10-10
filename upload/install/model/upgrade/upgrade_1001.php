@@ -1,5 +1,5 @@
 <?php
-namespace Install\Model\Upgrade;
+namespace Opencart\Application\Model\Upgrade;
 class Upgrade1001 extends \Opencart\System\Engine\Model {
 	public function upgrade() {
 		// order_recurring
@@ -194,7 +194,7 @@ class Upgrade1001 extends \Opencart\System\Engine\Model {
 				$lines = file($file);
 
 				foreach ($lines as $line) {
-					if (strpos($line, "define('DB_DRIVER', 'mysql'") !== false) {
+					if (strpos($line, "define('DB_DRIVER', 'mysql');") !== false) {
 						$upgrade = true;
 						break;
 					}
@@ -204,7 +204,7 @@ class Upgrade1001 extends \Opencart\System\Engine\Model {
 					$output = '';
 
 					foreach ($lines as $line_id => $line) {
-						if (strpos($line, "'mysql'") !== false) {
+						if (strpos($line, "define('DB_DRIVER', 'mysql');") !== false) {
 							$new_line = "define('DB_DRIVER', 'mysqli');";
 							
 							$output .= $new_line . "\n";
