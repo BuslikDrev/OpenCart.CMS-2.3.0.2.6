@@ -1,0 +1,27 @@
+<?php
+// *	@copyright	OPENCART.PRO 2011 - 2025.
+// *	@forum		https://forum.opencart.pro
+// *	@source		See SOURCE.txt for source and other copyright.
+// *	@license	GNU General Public License version 3; see LICENSE.txt
+
+class ControllerExtensionPaymentCod extends Controller {
+	public function index() {
+		$this->load->language('extension/payment/cod');
+
+		$data['text_loading'] = $this->language->get('text_loading');
+
+		$data['button_confirm'] = $this->language->get('button_confirm');
+
+		$data['continue'] = $this->url->link('checkout/success');
+
+		return $this->load->view('extension/payment/cod', $data);
+	}
+
+	public function confirm() {
+		if ($this->session->data['payment_method']['code'] == 'cod') {
+			$this->load->model('checkout/order');
+
+			$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('cod_order_status_id'));
+		}
+	}
+}
