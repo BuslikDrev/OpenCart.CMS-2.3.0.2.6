@@ -1,20 +1,19 @@
 <?php
-// *	@copyright	OPENCART.PRO 2011 - 2021.
+// *	@copyright	OPENCART.PRO 2011 - 2025.
 // *	@forum		https://forum.opencart.pro
 // *	@source		See SOURCE.txt for source and other copyright.
 // *	@license	GNU General Public License version 3; see LICENSE.txt
 
 class ControllerExtensionModuleProductTab extends Controller {
 	public function index($setting) {
-		//$cache = $this->config->get('turbo_status');
 		$cache = true;
 
 		if ($cache) {
 			$cache = 'product.product_tab.' . (int)$setting['limit'] . '.' . (int)$this->config->get('config_customer_group_id') . '.' . (int)$this->config->get('config_language_id') . '.' . (int)$this->config->get('config_store_id');
-			$data = $this->cache->get($cache);
+			$cache_data = $this->cache->get($cache);
 
-			if ($data) {
-				return  $this->load-> view( 'extension/module/' . 'product_tab' , $data );
+			if ($cache_data) {
+				return  $this->load-> view( 'extension/module/' . 'product_tab' , $cache_data );
 			}
 		}
 
