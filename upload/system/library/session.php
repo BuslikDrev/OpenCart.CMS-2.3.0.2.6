@@ -1,5 +1,5 @@
 <?php
-// *	@copyright	OPENCART.PRO 2011 - 2024.
+// *	@copyright	OPENCART.PRO 2011 - 2025.
 // *	@forum		https://forum.opencart.pro
 // *	@source		See SOURCE.txt for source and other copyright.
 // *	@license	GNU General Public License version 3; see LICENSE.txt
@@ -61,45 +61,45 @@ class Session {
 				}
 
 				if ($engine == 'native') {
-					// обработчик, например, 'files', 'sqlite', 'memcache' или 'memcached',
-					/* $this->config->set('session_save_handler', 'files');
-					if ($this->config->get('session_save_handler') == 'Memcache') {
-						//ini_set('memcache.session_save_path', 'tcp://localhost: 11211');
-						//ini_set('memcached.session_save_path', 'localhost: 11211');
-					} */
-					//ini_set('session.save_handler', $this->config->get('session_save_handler'));
-					ini_set('session.name', $this->config->get('session_name'));
-					ini_set('session.cookie_lifetime', $this->config->get('session_lifetime'));
-					ini_set('session.cookie_path', $this->config->get('session_path'));
-					ini_set('session.cookie_domain', $this->config->get('session_domain'));
-					ini_set('session.cookie_secure', $this->config->get('session_secure'));
-					ini_set('session.cookie_httponly', $this->config->get('session_httponly'));
-					ini_set('session.cookie_samesite', $this->config->get('session_samesite'));
-					//ini_set('session.cookie_sameparty', $this->config->get('session_sameparty'));
-					ini_set('session.gc_probability', $this->config->get('session_probability'));
-					ini_set('session.gc_divisor', $this->config->get('session_divisor'));
-					ini_set('session.gc_maxlifetime', $this->config->get('session_maxlifetime'));
-					ini_set('session.save_path', DIR_SESSION);
-					ini_set('session.use_strict_mode', true);
-					ini_set('session.use_only_cookies', true);
-					ini_set('session.use_cookies', true);
-					//$this->config->get('config_shared');
-					ini_set('session.use_trans_sid', false);
-					//ini_set('session.auto_start', 'On');
-
-					if (version_compare(phpversion(), '7.1.0', '>=')) {
-						ini_set('session.sid_length', $this->config->get('session_length'));
-						ini_set('session.sid_bits_per_character', $this->config->get('session_bits_per_char'));
-					} else {
-						ini_set('session.entropy_length', $this->config->get('session_length'));
-						ini_set('session.hash_bits_per_character', $this->config->get('session_bits_per_char'));
-						// https://www.php.net/manual/ru/function.hash-algos.php
-						//ini_set('session.hash_function', 0);
-					}
-
-					session_set_save_handler($this->adaptor);
-
 					if (!session_id()) {
+						// обработчик, например, 'files', 'sqlite', 'memcache' или 'memcached',
+						/* $this->config->set('session_save_handler', 'files');
+						if ($this->config->get('session_save_handler') == 'Memcache') {
+							//ini_set('memcache.session_save_path', 'tcp://localhost: 11211');
+							//ini_set('memcached.session_save_path', 'localhost: 11211');
+						} */
+						//ini_set('session.save_handler', $this->config->get('session_save_handler'));
+						ini_set('session.name', $this->config->get('session_name'));
+						ini_set('session.cookie_lifetime', $this->config->get('session_lifetime'));
+						ini_set('session.cookie_path', $this->config->get('session_path'));
+						ini_set('session.cookie_domain', $this->config->get('session_domain'));
+						ini_set('session.cookie_secure', $this->config->get('session_secure'));
+						ini_set('session.cookie_httponly', $this->config->get('session_httponly'));
+						ini_set('session.cookie_samesite', $this->config->get('session_samesite'));
+						//ini_set('session.cookie_sameparty', $this->config->get('session_sameparty'));
+						ini_set('session.gc_probability', $this->config->get('session_probability'));
+						ini_set('session.gc_divisor', $this->config->get('session_divisor'));
+						ini_set('session.gc_maxlifetime', $this->config->get('session_maxlifetime'));
+						ini_set('session.save_path', DIR_SESSION);
+						ini_set('session.use_strict_mode', true);
+						ini_set('session.use_only_cookies', true);
+						ini_set('session.use_cookies', true);
+						//$this->config->get('config_shared');
+						ini_set('session.use_trans_sid', false);
+						//ini_set('session.auto_start', 'On');
+
+						if (version_compare(phpversion(), '7.1.0', '>=')) {
+							ini_set('session.sid_length', $this->config->get('session_length'));
+							ini_set('session.sid_bits_per_character', $this->config->get('session_bits_per_char'));
+						} else {
+							ini_set('session.entropy_length', $this->config->get('session_length'));
+							ini_set('session.hash_bits_per_character', $this->config->get('session_bits_per_char'));
+							// https://www.php.net/manual/ru/function.hash-algos.php
+							//ini_set('session.hash_function', 0);
+						}
+
+						session_set_save_handler($this->adaptor);
+
 						$session_setting = array(
 							//'save_handler'     => $this->config->get('session_save_handler'),
 							'name'             => $this->config->get('session_name'),
