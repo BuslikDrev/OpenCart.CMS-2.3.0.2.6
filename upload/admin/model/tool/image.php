@@ -1,11 +1,11 @@
 <?php
-// *	@copyright	OPENCART.PRO 2011 - 2020.
-// *	@forum		http://forum.opencart.pro
+// *	@copyright	OPENCART.PRO 2011 - 2025.
+// *	@forum		https://forum.opencart.pro
 // *	@source		See SOURCE.txt for source and other copyright.
 // *	@license	GNU General Public License version 3; see LICENSE.txt
 
 class ModelToolImage extends Model {
-	public function resize($filename, $width, $height) {
+	public function resize($filename, $width, $height, $default = '') {
 		if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/', realpath(DIR_IMAGE . $filename)), 0, strlen(DIR_IMAGE)) != DIR_IMAGE) {
 			return;
 		}
@@ -35,7 +35,7 @@ class ModelToolImage extends Model {
 
 			if ($width_orig != $width || $height_orig != $height) {
 				$image = new Image(DIR_IMAGE . $image_old);
-				$image->resize($width, $height);
+				$image->resize($width, $height, $default);
 				$image->save(DIR_IMAGE . $image_new);
 			} else {
 				copy(DIR_IMAGE . $image_old, DIR_IMAGE . $image_new);
