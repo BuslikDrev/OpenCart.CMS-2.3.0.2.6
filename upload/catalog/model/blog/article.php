@@ -1,5 +1,5 @@
 <?php
-// *	@copyright	OPENCART.PRO 2011 - 2024.
+// *	@copyright	OPENCART.PRO 2011 - 2025.
 // *	@forum		https://forum.opencart.pro
 // *	@source		See SOURCE.txt for source and other copyright.
 // *	@license	GNU General Public License version 3; see LICENSE.txt
@@ -14,10 +14,10 @@ class ModelBlogArticle extends Model {
 
 		if ($query->num_rows) {
 			if (!empty($query->row['user_id'])) {
-				$author = $this->db->query("SELECT CONCAT(firstname, ' ', lastname) AS author FROM " . DB_PREFIX . "user WHERE user_id='" . (int)$query->row['user_id'] . "'");
+				$author = $this->db->query("SELECT TRIM(CONCAT(firstname, ' ', lastname)) AS author FROM " . DB_PREFIX . "user WHERE user_id='" . (int)$query->row['user_id'] . "'");
 				$author = ($author->num_rows ? $author->row['author'] : false);
 			} elseif (!empty($query->row['customer_id'])) {
-				$author = $this->db->query("SELECT CONCAT(firstname, ' ', lastname) AS author FROM " . DB_PREFIX . "customer WHERE customer_id='" . (int)$query->row['customer_id'] . "'");
+				$author = $this->db->query("SELECT TRIM(CONCAT(firstname, ' ', lastname)) AS author FROM " . DB_PREFIX . "customer WHERE customer_id='" . (int)$query->row['customer_id'] . "'");
 				$author = ($author->num_rows ? $author->row['author'] : false);
 			} else {
 				$author = false;
