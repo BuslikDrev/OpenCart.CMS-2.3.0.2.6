@@ -1,6 +1,6 @@
 <?php
-// *	@copyright	OPENCART.PRO 2011 - 2017.
-// *	@forum	http://forum.opencart.pro
+// *	@copyright	OPENCART.PRO 2011 - 2025.
+// *	@forum		https://forum.opencart.pro
 // *	@source		See SOURCE.txt for source and other copyright.
 // *	@license	GNU General Public License version 3; see LICENSE.txt
 
@@ -269,7 +269,7 @@ class ControllerUserUser extends Controller {
 
 	protected function getForm() {
 		$data['heading_title'] = $this->language->get('heading_title');
-		
+
 		$data['text_form'] = !isset($this->request->get['user_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 		$data['text_enabled'] = $this->language->get('text_enabled');
 		$data['text_disabled'] = $this->language->get('text_disabled');
@@ -483,7 +483,7 @@ class ControllerUserUser extends Controller {
 			$this->error['firstname'] = $this->language->get('error_firstname');
 		}
 
-		if ((utf8_strlen(trim($this->request->post['lastname'])) < 1) || (utf8_strlen(trim($this->request->post['lastname'])) > 32)) {
+		if (utf8_strlen(trim($this->request->post['lastname'])) > 32) {
 			$this->error['lastname'] = $this->language->get('error_lastname');
 		}
 
