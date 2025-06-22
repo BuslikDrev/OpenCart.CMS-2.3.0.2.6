@@ -1,5 +1,5 @@
 <?php
-// *	@copyright	OPENCART.PRO 2011 - 2021.
+// *	@copyright	OPENCART.PRO 2011 - 2025.
 // *	@forum		https://forum.opencart.pro
 // *	@source		See SOURCE.txt for source and other copyright.
 // *	@license	GNU General Public License version 3; see LICENSE.txt
@@ -9,6 +9,7 @@ $_['text_search']              = 'Поиск';
 $_['text_brand']               = 'Производитель';
 $_['text_manufacturer']        = 'Производитель:';
 $_['text_model']               = 'Код Товара:';
+$_['text_sku']                 = 'Артикул:';
 $_['text_reward']              = 'Бонусные баллы:';
 $_['text_points']              = 'Цена в бонусных баллах:';
 $_['text_stock']               = 'Наличие:';
