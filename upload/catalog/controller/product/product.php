@@ -1,5 +1,5 @@
 <?php
-// *	@copyright	OPENCART.PRO 2011 - 2021.
+// *	@copyright	OPENCART.PRO 2011 - 2025.
 // *	@forum		https://forum.opencart.pro
 // *	@source		See SOURCE.txt for source and other copyright.
 // *	@license	GNU General Public License version 3; see LICENSE.txt
@@ -192,6 +192,7 @@ class ControllerProductProduct extends Controller {
 			$data['text_select'] = $this->language->get('text_select');
 			$data['text_manufacturer'] = $this->language->get('text_manufacturer');
 			$data['text_model'] = $this->language->get('text_model');
+			$data['text_sku'] = $this->language->get('text_sku');
 			$data['text_reward'] = $this->language->get('text_reward');
 			$data['text_points'] = $this->language->get('text_points');
 			$data['text_stock'] = $this->language->get('text_stock');
@@ -285,6 +286,7 @@ class ControllerProductProduct extends Controller {
 			$data['manufacturer'] = $product_info['manufacturer'];
 			$data['manufacturers'] = $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $product_info['manufacturer_id']);
 			$data['model'] = $product_info['model'];
+			$data['sku'] = $product_info['sku'];
 			$data['reward'] = $product_info['reward'];
 			$data['points'] = $product_info['points'];
 			$data['description'] = html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8');
