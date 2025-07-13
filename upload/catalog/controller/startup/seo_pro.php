@@ -95,8 +95,14 @@ class ControllerStartupSeoPro extends Controller {
 			$route_ = $this->request->get['_route_'];
 			unset($this->request->get['_route_']);
 			$parts = explode('/', trim(utf8_strtolower($route_), '/'));
-			list($last_part) = explode('.', array_pop($parts));
-			array_push($parts, $last_part);
+
+			if ($this->config->get('config_seo_url_postfix')) {
+				$last_part = strrchr(end($parts), '.', true);
+				if ($last_part) {
+					array_splice($parts, -1, 1, $last_part);
+				}
+			}
+
 			$rows = array();
 			foreach ($parts as $keyword) {
 				if (isset($this->cache_data['keywords'][$keyword])) {
@@ -340,7 +346,7 @@ class ControllerStartupSeoPro extends Controller {
 
 		$seo_url = $url_info['scheme'] . '://' . $url_info['host'] . (isset($url_info['port']) ? ':' . $url_info['port'] : '') . $path . '/' . $seo_url;
 		if (isset($postfix)) {
-			$seo_url .= trim($this->config->get('config_seo_url_postfix'));
+			$seo_url .= $this->config->get('config_seo_url_postfix');
 		} else {
 			$seo_url .= '/';
 		}
