@@ -6,8 +6,8 @@
 
 class ControllerStartupSeoPro extends Controller {
 	private $cache_data = null;
-	private $languages = array();
-	private $config_language;
+	//private $languages = array();
+	//private $config_language;
 	private $valid_server = false;
 	private $url_sheme = 'http';
 	private $ssl_routes = array(
@@ -69,12 +69,12 @@ class ControllerStartupSeoPro extends Controller {
 				$this->cache->set('seo_pro', $this->cache_data);
 			}
 		}
-		$query = $this->db->query("SELECT `value` FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_language'");
+		/* $query = $this->db->query("SELECT `value` FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_language'");
 		$this->config_language = $query->row['value'];
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "language WHERE status = '1'");
 		foreach ($query->rows as $result) {
 			$this->languages[$result['code']] = $result;
-		}
+		} */
 	}
 
 	public function index() {
