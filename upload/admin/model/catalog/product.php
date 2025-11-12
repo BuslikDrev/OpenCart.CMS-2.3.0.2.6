@@ -1,5 +1,5 @@
 <?php
-// *	@copyright	OPENCART.PRO 2011 - 2022.
+// *	@copyright	OPENCART.PRO 2011 - 2025.
 // *	@forum		https://forum.opencart.pro
 // *	@source		See SOURCE.txt for source and other copyright.
 // *	@license	GNU General Public License version 3; see LICENSE.txt
@@ -408,6 +408,7 @@ class ModelCatalogProduct extends Model {
 			$data['product_layout'] = $this->getProductLayouts($product_id);
 			$data['product_store'] = $this->getProductStores($product_id);
 			$data['product_recurrings'] = $this->getRecurrings($product_id);
+			$data['product_tab'] = $this->getProductTabbyProductID($product_id);
 			$data['product_benefits'] = $this->getBenefits($product_id);
 
 			$this->addProduct($data);
