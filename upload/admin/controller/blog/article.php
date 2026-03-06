@@ -776,7 +776,27 @@ class ControllerBlogArticle extends Controller {
 		if (isset($this->request->post['author'])) {
 			$data['author'] = $this->request->post['author'];
 		} elseif (!empty($article_info)) {
-			$data['author'] = $article_info['author'];
+			$data['author'] = array();
+
+			if (!empty($article_info['user_id'])) {
+				$this->load->model('user/user');
+
+				$user = $this->model_user_user->getUser($article_info['user_id']);
+
+				if ($user) {
+					$data['author']['user_id'] = $user['user_id'];
+					$data['author']['name'] = trim($user['firstname'] . ' ' . $user['lastname']);
+				}
+			} elseif (!empty($article_info['customer_id'])) {
+				$this->load->model('customer/customer');
+
+				$customer = $this->model_customer_customer->getCustomer($article_info['customer_id']);
+
+				if ($customer) {
+					$data['author']['customer_id'] = $customer['customer_id'];
+					$data['author']['name'] = trim($customer['firstname'] . ' ' . $customer['lastname']);
+				}
+			}
 		} else {
 			$data['author'] = array();
 		}
