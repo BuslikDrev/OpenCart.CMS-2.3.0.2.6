@@ -1,5 +1,5 @@
 <?php
-// *	@copyright	OPENCART.PRO 2011 - 2025.
+// *	@copyright	OPENCART.PRO 2011 - 2026.
 // *	@forum		https://forum.opencart.pro
 // *	@source		See SOURCE.txt for source and other copyright.
 // *	@license	GNU General Public License version 3; see LICENSE.txt
@@ -113,6 +113,46 @@ class ControllerUserUser extends Controller {
 		}
 
 		$this->getList();
+	}
+
+	public function autocomplete() {
+		$json = array();
+
+		if (isset($this->request->get['filter_name']) || isset($this->request->get['filter_email'])) {
+			if (isset($this->request->get['filter_name'])) {
+				$filter_name = $this->request->get['filter_name'];
+			} else {
+				$filter_name = '';
+			}
+
+			if (isset($this->request->get['filter_email'])) {
+				$filter_email = $this->request->get['filter_email'];
+			} else {
+				$filter_email = '';
+			}
+
+			$this->load->model('user/user');
+
+			$filter_data = array(
+				'filter_name'  => $filter_name,
+				'filter_email' => $filter_email,
+				'start'        => 0,
+				'limit'        => 5
+			);
+
+			$results = $this->model_user_user->getUsers($filter_data);
+
+			foreach ($results as $result) {
+				$json[] = array(
+					'user_id'   => $result['user_id'],
+					'firstname' => $result['firstname'],
+					'lastname'  => $result['lastname']
+				);
+			}
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
 	}
 
 	protected function getList() {
