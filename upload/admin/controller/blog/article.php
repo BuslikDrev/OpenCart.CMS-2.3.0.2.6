@@ -1,5 +1,5 @@
 <?php
-// *	@copyright	OPENCART.PRO 2011 - 2022.
+// *	@copyright	OPENCART.PRO 2011 - 2026.
 // *	@forum		https://forum.opencart.pro
 // *	@source		See SOURCE.txt for source and other copyright.
 // *	@license	GNU General Public License version 3; see LICENSE.txt
@@ -635,6 +635,7 @@ class ControllerBlogArticle extends Controller {
 		$data['entry_meta_description'] = $this->language->get('entry_meta_description');
 		$data['entry_meta_keyword'] = $this->language->get('entry_meta_keyword');
 		$data['entry_keyword'] = $this->language->get('entry_keyword');
+		$data['entry_author'] = $this->language->get('entry_author');
 		$data['entry_image'] = $this->language->get('entry_image');
 		$data['entry_store'] = $this->language->get('entry_store');
 		$data['entry_download'] = $this->language->get('entry_download');
@@ -770,6 +771,14 @@ class ControllerBlogArticle extends Controller {
 		$language_id = $this->config->get('config_language_id');
 		if (isset($data['article_description'][$language_id]['name'])) {
 			$data['heading_title'] = $data['article_description'][$language_id]['name'];
+		}
+
+		if (isset($this->request->post['author'])) {
+			$data['author'] = $this->request->post['author'];
+		} elseif (!empty($article_info)) {
+			$data['author'] = $article_info['author'];
+		} else {
+			$data['author'] = array();
 		}
 
 		if (isset($this->request->post['image'])) {
