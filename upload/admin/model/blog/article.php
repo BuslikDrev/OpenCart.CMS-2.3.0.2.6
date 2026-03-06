@@ -1,5 +1,5 @@
 <?php
-// *	@copyright	OPENCART.PRO 2011 - 2022.
+// *	@copyright	OPENCART.PRO 2011 - 2026.
 // *	@forum		https://forum.opencart.pro
 // *	@source		See SOURCE.txt for source and other copyright.
 // *	@license	GNU General Public License version 3; see LICENSE.txt
@@ -9,6 +9,15 @@ class ModelBlogArticle extends Model {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "article SET status = '" . (int)$data['status'] . "', noindex = '" . (int)$data['noindex'] . "', sort_order = '" . (int)$data['sort_order'] . "', date_added = NOW()");
 
 		$article_id = $this->db->getLastId();
+
+		if (isset($data['author'])) {
+			if (!empty($data['author']['user_id'])) {
+				$this->db->query("UPDATE " . DB_PREFIX . "article SET user_id = '" . (int)$data['author']['user_id'] . "' WHERE article_id = '" . (int)$article_id . "'");
+			}
+			if (!empty($data['author']['customer_id'])) {
+				$this->db->query("UPDATE " . DB_PREFIX . "article SET customer_id = '" . (int)$data['author']['customer_id'] . "' WHERE article_id = '" . (int)$article_id . "'");
+			}
+		}
 
 		if (isset($data['image'])) {
 			$this->db->query("UPDATE " . DB_PREFIX . "article SET image = '" . $this->db->escape($data['image']) . "' WHERE article_id = '" . (int)$article_id . "'");
@@ -84,6 +93,15 @@ class ModelBlogArticle extends Model {
 
 	public function editArticle($article_id, $data) {
 		$this->db->query("UPDATE " . DB_PREFIX . "article SET status = '" . (int)$data['status'] . "', noindex = '" . (int)$data['noindex'] . "', sort_order = '" . (int)$data['sort_order'] . "', date_modified = NOW() WHERE article_id = '" . (int)$article_id . "'");
+
+		if (isset($data['author'])) {
+			if (!empty($data['author']['user_id'])) {
+				$this->db->query("UPDATE " . DB_PREFIX . "article SET user_id = '" . (int)$data['author']['user_id'] . "' WHERE article_id = '" . (int)$article_id . "'");
+			}
+			if (!empty($data['author']['customer_id'])) {
+				$this->db->query("UPDATE " . DB_PREFIX . "article SET customer_id = '" . (int)$data['author']['customer_id'] . "' WHERE article_id = '" . (int)$article_id . "'");
+			}
+		}
 
 		if (isset($data['image'])) {
 			$this->db->query("UPDATE " . DB_PREFIX . "article SET image = '" . $this->db->escape($data['image']) . "' WHERE article_id = '" . (int)$article_id . "'");
