@@ -97,6 +97,14 @@
                 </div>
                 <?php } ?>
               </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-author"><?php echo $entry_author; ?></label>
+                <div class="col-sm-10">
+                  <input type="text" name="author[name]" value="<?php echo (isset($author['name']) ? $author['name'] : ''); ?>" placeholder="<?php echo $entry_author; ?>" id="input-author" class="form-control" />
+                  <input type="hidden" name="author[user_id]" value="<?php echo (isset($author['user_id']) ? $author['user_id'] : ''); ?>" class="form-control" />
+                  <input type="hidden" name="author[customer_id]" value="<?php echo (isset($author['customer_id']) ? $author['customer_id'] : ''); ?>" class="form-control" />
+                </div>
+              </div>
             </div>
             <div class="tab-pane" id="tab-data">
               <div class="form-group">
@@ -303,6 +311,62 @@
 <link href="view/javascript/summernote/summernote.css" rel="stylesheet" />
 <script type="text/javascript" src="view/javascript/summernote/opencart.js"></script>
 <script type="text/javascript"><!--
+// Author
+$('input[name=\'author[name]\']').autocomplete({
+	'source': function(request, response) {
+		var data = [], status = 0;
+		var start = function(json) {
+			status++;
+			for (var i in json) {
+				data.push(json[i]);
+			}
+
+			if (status == 2) {
+				status = 0;
+				response($.map(data, function(item) {
+					return {
+						label: (item['firstname'] + ' ' + item['lastname']).trim(),
+						value: (item['user_id'] ? item['user_id'] : 0) + '-' + (item['customer_id'] ? item['customer_id'] : 0),
+						user_id: item['user_id'],
+						customer_id: item['customer_id']
+					}
+				}));
+			}
+		}
+
+		$.ajax({
+			url: 'index.php?route=user/user/autocomplete&token=<?php echo $token; ?>&filter_name=' +  encodeURIComponent(request),
+			dataType: 'json',
+			success: function(json) {
+				start(json);
+			}
+		});
+		$.ajax({
+			url: 'index.php?route=customer/customer/autocomplete&token=<?php echo $token; ?>&filter_name=' +  encodeURIComponent(request),
+			dataType: 'json',
+			success: function(json) {
+				start(json);
+			}
+		});
+	},
+	'select': function(item) {
+		$('input[name=\'author[name]\']').val(item['label']);
+		$('input[name=\'author[user_id]\']').val(0);
+		$('input[name=\'author[customer_id]\']').val(0);
+
+		if (item['user_id']) {
+			$('input[name=\'author[user_id]\']').val(item['user_id']);
+		}
+		if (item['customer_id']) {
+			$('input[name=\'author[customer_id]\']').val(item['customer_id']);
+		}
+	}
+});
+
+$('#product-related').delegate('.fa-minus-circle', 'click', function() {
+	$(this).parent().remove();
+});
+
 // Category
 $('input[name=\'category\']').autocomplete({
 	'source': function(request, response) {
@@ -350,10 +414,10 @@ $('input[name=\'download\']').autocomplete({
 	},
 	'select': function(item) {
 		$('input[name=\'download\']').val('');
-		
+
 		$('#article-download' + item['value']).remove();
-		
-		$('#article-download').append('<div id="article-download' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="article_download[]" value="' + item['value'] + '" /></div>');	
+
+		$('#article-download').append('<div id="article-download' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="article_download[]" value="' + item['value'] + '" /></div>');
 	}
 });
 
@@ -379,9 +443,9 @@ $('input[name=\'related\']').autocomplete({
 	},
 	'select': function(item) {
 		$('input[name=\'related\']').val('');
-		
+
 		$('#article-related' + item['value']).remove();
-		
+
 		$('#article-related').append('<div id="article-related' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="article_related[]" value="' + item['value'] + '" /></div>');
 	}
 });
@@ -408,10 +472,10 @@ $('input[name=\'relatedproduct\']').autocomplete({
 	},
 	'select': function(item) {
 		$('input[name=\'relatedproduct\']').val('');
-		
+
 		$('#product-related' + item['value']).remove();
-		
-		$('#product-related').append('<div id="product-related' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="article_related_product[]" value="' + item['value'] + '" /></div>');	
+
+		$('#product-related').append('<div id="product-related' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="article_related_product[]" value="' + item['value'] + '" /></div>');
 	}
 });
 
