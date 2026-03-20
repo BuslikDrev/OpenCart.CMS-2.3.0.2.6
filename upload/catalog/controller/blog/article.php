@@ -1,5 +1,5 @@
 <?php
-// *	@copyright	OPENCART.PRO 2011 - 2025.
+// *	@copyright	OPENCART.PRO 2011 - 2026.
 // *	@forum		https://forum.opencart.pro
 // *	@source		See SOURCE.txt for source and other copyright.
 // *	@license	GNU General Public License version 3; see LICENSE.txt
@@ -127,9 +127,6 @@ class ControllerBlogArticle extends Controller {
 			$this->document->addLink($this->url->link('blog/article', 'article_id=' . $this->request->get['article_id']), 'canonical');
 			$this->document->addScript('catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js');
 			$this->document->addStyle('catalog/view/javascript/jquery/magnific/magnific-popup.css');
-			//$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment.js');
-			//$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
-			//$this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
 
 			if ($article_info['meta_h1']) {
 				$data['heading_title'] = $article_info['meta_h1'];
@@ -180,7 +177,7 @@ class ControllerBlogArticle extends Controller {
 			}
 
 			if ($this->customer->isLogged()) {
-				$data['customer_name'] = $this->customer->getFirstName() . '&nbsp;' . $this->customer->getLastName();
+				$data['customer_name'] = trim($this->customer->getFirstName() . ' ' . $this->customer->getLastName());
 			} else {
 				$data['customer_name'] = '';
 			}
