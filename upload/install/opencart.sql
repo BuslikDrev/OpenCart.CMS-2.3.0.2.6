@@ -2098,7 +2098,7 @@ CREATE TABLE `oc_module` (
   `module_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `code` varchar(32) NOT NULL,
-  `setting` text NOT NULL,
+  `setting` mediumtext NOT NULL,
   PRIMARY KEY (`module_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -3376,7 +3376,7 @@ CREATE TABLE `oc_setting` (
   `store_id` int(11) NOT NULL DEFAULT '0',
   `code` varchar(32) NOT NULL,
   `key` varchar(64) NOT NULL,
-  `value` text NOT NULL,
+  `value` mediumtext NOT NULL,
   `serialized` tinyint(1) NOT NULL,
   PRIMARY KEY (`setting_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
