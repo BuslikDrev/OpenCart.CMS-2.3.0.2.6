@@ -1,5 +1,5 @@
 <?php
-// *	@copyright	OPENCART.PRO 2011 - 2022.
+// *	@copyright	OPENCART.PRO 2011 - 2026.
 // *	@forum		https://forum.opencart.pro
 // *	@source		See SOURCE.txt for source and other copyright.
 // *	@license	GNU General Public License version 3; see LICENSE.txt
@@ -283,7 +283,7 @@ class ControllerAccountRegister extends Controller {
 		} elseif (isset($this->session->data['shipping_address']['zone_id'])) {
 			$data['zone_id'] = $this->session->data['shipping_address']['zone_id'];
 		} else {
-			$data['zone_id'] = '';
+			$data['zone_id'] = $this->config->get('config_zone_id');
 		}
 
 		$this->load->model('localisation/country');
@@ -437,7 +437,7 @@ class ControllerAccountRegister extends Controller {
 			$this->error['password'] = $this->language->get('error_password');
 		}
 
-		if (isset($this->request->post['confirm']) && isset($this->request->post['password']) && $this->request->post['confirm'] != $this->request->post['password']) {
+		if (!isset($this->request->post['confirm']) || isset($this->request->post['confirm']) && isset($this->request->post['password']) && $this->request->post['confirm'] != $this->request->post['password']) {
 			$this->error['confirm'] = $this->language->get('error_confirm');
 		}
 
