@@ -179,6 +179,17 @@ class Session {
 				$this->data = $this->adaptor->read($session_id);
 			}
 
+			// удаляем сессию, если сменился ip на случай угона сессии
+			if ($this->config->get('session_samesite') == 'none') {
+				if (isset($this->data['customer_safe_ip']) && $this->data['customer_safe_ip'] != $this->request->server['REMOTE_ADDR']) {
+					$this->destroy($session_id);
+
+					return false;
+				} elseif (!isset($this->data['customer_safe_ip'])) {
+					$this->data['customer_safe_ip'] = $this->request->server['REMOTE_ADDR'];
+				}
+			}
+
 			if ($this->engine != 'native' || $this->engine == 'native' && $name != $this->config->get('session_name')) {
 				$this->setcookie($name, $session_id, array(
 					'expires'   => ($this->config->get('session_lifetime') ? time() + $this->config->get('session_lifetime') : 0),
